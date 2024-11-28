@@ -1,0 +1,1 @@
+    lot2.getSpaces();
