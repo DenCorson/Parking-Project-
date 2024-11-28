@@ -11,39 +11,39 @@ class ParkingSpace : public Parking{
 
 public:
 
-    ParkingSpace( int number, bool spaceEmpty = true )
+    ParkingSpace( int number, bool spaceEmpty = true ) // 
     {
        spaceNumber = number;
        isSpaceEmpty = spaceEmpty;
     
     }
 
-    int getSpaceNumber()
+    int getSpaceNumber() // returns spaceNumber
     {
        return spaceNumber;
     }   
 
-    bool getIsSpaceEmpty() 
+    bool getIsSpaceEmpty()  // Returns status of space if empty
     {
         return isSpaceEmpty;
     }
 
-    void setSpaceNumber(int number)
+    void setSpaceNumber(int number) // sets space number
     {
        spaceNumber = number;
     }
 
-    void setSpacetoEmpty()
+    void setSpacetoEmpty() // sets space status to empty
     {
        isSpaceEmpty = true;
     }
-
-    void setSpacetoFull()
+ 
+    void setSpacetoFull() // sets space to full
     {
       isSpaceEmpty = false;
     }
 
-    void display() override
+    void display() override // displays Parking space number and it its status, also helps Composite uniformity with ParkingLot.hpp
     {
      cout << "Displaying Parking Space " << spaceNumber << endl;
         if (isSpaceEmpty)
@@ -57,10 +57,10 @@ public:
 
      }
 
-    string getName() const override 
-    {
-        return "Parking Space #" + (spaceNumber);
-    }
+    //string getName() const override 
+    //{
+   //     return "Parking Space #" + (spaceNumber);
+   // }
      
 
 };
