@@ -7,9 +7,9 @@ using namespace std;
 class Parking
 {
  public: 
-    virtual ~Parking(){}
-    virtual void display() = 0;
-    virtual string getName() const = 0;  
+    virtual ~Parking(){} // Parking deconstructor
+    virtual void display() = 0; //  Abstract display fuction, will be overidden through Parkinglot and Parkingspace hiles
+  //  virtual string getName() const = 0;  
 
 };
 
