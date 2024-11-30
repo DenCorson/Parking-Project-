@@ -51,7 +51,7 @@ vector<ParkingSpace>& getOccupiedSpaces()  // returns spaces which are occupied 
         }
     }
 
-    int countEmptySpaces() // counts  the number emptypaces in the lot
+    int countEmptySpaces() // counts  the number emptyspaces in the lot
     {
         int emptySpace = 0;
         for (int i = 0; i < space.size(); i++)
@@ -77,17 +77,19 @@ vector<ParkingSpace>& getOccupiedSpaces()  // returns spaces which are occupied 
         return occupiedSpaces;
     }
 
-    bool reserveSpace(int spaceNumber)  // reserves space, with the space number
+    bool reserveSpace(int spaceNumber, int startTime, int endTime)  // reserves space, with the space number
     {
         for (int i =0; i < space.size(); i++)  // iterates through lot vector of spaces
         {
             if (space[i].getSpaceNumber() == spaceNumber && space[i].getIsSpaceEmpty()) //condition checks if the entered space number is empty if so, reserve by setting space to occupied
              {
-                space[i].setSpacetoFull();
-                cout << "Space #" << spaceNumber << " has been reserved." << endl;
-                return true;
+                
+                return space[i].reserveTimeSlot(startTime,endTime); // calls reserveTimeslot function from startTime, endtime reservations in parameter for specified parameter
             }
+          
         }
+        cout << "Space #" << spaceNumber << " not found or is already occupied." << endl; // displays to user that space wasnt able to be reserved or found due  conflict in reserveTimeSlopt
+        return false; // Return false if the space is not found or is occupied
     }
 
     bool clearSpace(int spaceNumber) //clears the reserve spot with number in spot
