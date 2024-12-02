@@ -49,11 +49,29 @@ class FacultyLotDecorator: public ParkingLotDecorator // decorator for the Facul
 
     bool reserveFacultySpot(const string& factID, int spaceNumber, int startTime, int endTime) // reserves parking spot for faculty with their ID in parameter and displays its faculty lot
     {
-       baseParkingLot-> reserveSpace(factID, spaceNumber, startTime, endTime);
-       cout << "Faculty space reserved for Faculty ID: " << factID << endl;
-        return true;
-    }
-
+        vector<ParkingSpace>& spaces = baseParkingLot->getSpaces();
+            for(int i = 0; i <spaces.size(); i++)
+                {
+                    if (spaces[i].getSpaceNumber() == spaceNumber)
+                        {
+                            if(spaces[i].getIsSpaceEmpty() == false)
+                            {
+                              cout << "Space " << spaceNumber << " is already occupied. "
+                               << "Will be free to reserve after " << spaces[i].getReservationEndTime() << ":00." << endl;
+                               return false;           
+                            }
+                        }
+                }
+            if(baseParkingLot-> reserveSpace(factID, spaceNumber, startTime, endTime))
+            {
+            cout << "Faculty space reserved for Faculty ID: " << factID << endl;
+            return true;
+            }
+            else
+            {
+                return false;
+            }
+  }
 };
 
 class StudentLotDecorator: public ParkingLotDecorator // decorator for the Student  lot, will add student  functionality
@@ -70,9 +88,28 @@ class StudentLotDecorator: public ParkingLotDecorator // decorator for the Stude
 
     bool reserveStudentSpot(const string& studentID, int spaceNumber, int startTime, int endTime) // reserves parking spot for student  with their ID in parameter and displays its student lot
         {
-            baseParkingLot-> reserveSpace(studentID, spaceNumber, startTime, endTime);
+            vector<ParkingSpace>& spaces = baseParkingLot->getSpaces();
+            for(int i = 0; i <spaces.size(); i++)
+                {
+                    if (spaces[i].getSpaceNumber() == spaceNumber)
+                        {
+                            if(spaces[i].getIsSpaceEmpty() == false)
+                            {
+                              cout << "Space " << spaceNumber << " is already occupied. "
+                               << "Will be free to reserve after " << spaces[i].getReservationEndTime() << ":00." << endl;
+                               return false;           
+                            }
+                        }
+                }
+            if(baseParkingLot-> reserveSpace(studentID, spaceNumber, startTime, endTime))
+            {
             cout << "Student space reserved for Student ID: " << studentID << endl;
             return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 };    
