@@ -7,6 +7,11 @@
 #include <iostream>
 using namespace std;
 
+
+//Parking lot serves as the component for the Decorator
+//Parking lot serves as a composite between the  parkinglotabstract and parkingspace
+//Parking lot serves as ?Observer?
+
 class ParkingLot : public Parking{ 
 
 std:: vector<ParkingSpace> space; // vector of lots will contain objects of spaces from ParkingSpace class

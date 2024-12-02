@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "ParkingLot.hpp"
-// single static method in single class turns into simple Factory pattern to create Parking lots
+// single static method in single class turns into simple Factory pattern to create objects (Parking lots)
 class ParkingLotFactory { 
 public:
 

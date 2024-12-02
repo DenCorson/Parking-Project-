@@ -1,8 +1,8 @@
-#include "ParkingLot.hpp"
+#include "ParkingLot.hpp"  
 #include <iostream>
 using namespace std;
 
-
+// Decorator will decorate Parking lot "component" creating  different  parkinglots "Student" and "Faculty"
 
 class ParkingLotDecorator: public ParkingLot  // decorator wraps around ParkingLot
 {
@@ -34,7 +34,8 @@ class ParkingLotDecorator: public ParkingLot  // decorator wraps around ParkingL
     }
 };
 
-
+// Below FacultyLotDecorator serves as ConcreteDecorator1
+ 
 class FacultyLotDecorator: public ParkingLotDecorator // decorator for the Faculty lot, will add faculty functionality
 {
   public:
@@ -73,6 +74,9 @@ class FacultyLotDecorator: public ParkingLotDecorator // decorator for the Facul
             }
   }
 };
+
+
+// Below StudentLotDecorator serves as ConcreteDecorator1
 
 class StudentLotDecorator: public ParkingLotDecorator // decorator for the Student  lot, will add student  functionality
 {

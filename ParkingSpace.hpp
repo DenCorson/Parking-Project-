@@ -5,6 +5,8 @@
 #include <vector>
 using namespace std;
 
+//ParkingSpace serves as the "leaf" for the composite pattern for ParkingAbstract and ParkingLot (shares display() uniformity)
+
 class ParkingSpace : public Parking{
  int spaceNumber;
  static const int totalTimeSlots = 17; // numbrt of time slots from reservation 7am-12am
