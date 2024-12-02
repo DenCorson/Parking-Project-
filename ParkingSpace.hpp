@@ -6,7 +6,6 @@
 using namespace std;
 
 //ParkingSpace serves as the "leaf" for the composite pattern for ParkingAbstract and ParkingLot (shares display() uniformity)
-
 class ParkingSpace : public Parking{
  int spaceNumber;
  static const int totalTimeSlots = 17; // numbrt of time slots from reservation 7am-12am
@@ -59,7 +58,9 @@ public:
       isSpaceEmpty = false;
     }
 
+
  bool reserveTimeSlot(const string& id, int startTime, int endTime) {
+
     if (startTime < 0 || endTime >= totalTimeSlots) 
     {
         cout << "Time range invalid" << endl;
@@ -86,6 +87,7 @@ public:
 
     userID = id;
     reservationEndTime = endTime + 7;
+
     cout << "Parking Space " << spaceNumber << " reserved by id: " << userID <<" for " << startTime + 7 << ":00"
          << " through " << endTime + 7 << ":00." << endl;
 

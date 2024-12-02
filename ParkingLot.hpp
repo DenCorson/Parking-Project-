@@ -3,18 +3,47 @@
 
 #include "ParkingAbstract.hpp"
 #include "ParkingSpace.hpp"
+#include "Observer.hpp"
 #include <vector>
+#include <algorithm>
 #include <iostream>
 using namespace std;
 
 
 //Parking lot serves as the component for the Decorator
 //Parking lot serves as a composite between the  parkinglotabstract and parkingspace
-//Parking lot serves as ?Observer?
+//Parking lot serves as subject for obsevers student and faculty decorators?
 
-class ParkingLot : public Parking{ 
 
-std:: vector<ParkingSpace> space; // vector of lots will contain objects of spaces from ParkingSpace class
+class Subject {
+    private:
+    vector <Observer*> observers;
+
+    public:
+
+    void registerObserver(Observer* observer)
+{
+    observers.push_back(observer);
+}
+
+void removeObserver(Observer* observer)
+{
+    observers.erase(find(observers.begin(), observers.end(), observer));
+}
+
+void notify(const string& message)
+{
+    for (int i = 0; i < observers.size(); i++)
+    {
+        observers[i]->update(message);
+    }
+}
+};
+
+class ParkingLot : public Parking, public Subject{ 
+
+vector<ParkingSpace> space; // vector of lots will contain objects of spaces from ParkingSpace class
+vector<Observer*> observers; //  vector will contain list of observers to notify subscribers of changes in lots
 string lotName; // name of the lot(section)
 string userID; 
 
@@ -92,7 +121,12 @@ vector<ParkingSpace>& getOccupiedSpaces()  // returns spaces which are occupied 
             if (space[i].getSpaceNumber() == spaceNumber && space[i].getIsSpaceEmpty()) //condition checks if the entered space number is empty if so, reserve by setting space to occupied
              {
 
-                return space[i].reserveTimeSlot(id, startTime,endTime); // calls reserveTimeslot function from startTime, endtime reservations in parameter for specified parameter
+                if (space[i].reserveTimeSlot(id, startTime,endTime)) // calls reserveTimeslot function from startTime, endtime reservations in parameter for specified parameter
+                    {
+                        notify("Space " + to_string(spaceNumber) + " reservered by " + id + " from " + to_string(startTime + 7) + ":00 " + 
+                        to_string(endTime + 7) + ":00" );
+                        return true;
+                    }
              }
             else if(space[i].getSpaceNumber() == spaceNumber && space[i].getIsSpaceEmpty() == false)
             {
@@ -119,11 +153,13 @@ vector<ParkingSpace>& getOccupiedSpaces()  // returns spaces which are occupied 
             {
                 space[i].clearReservedTimeSlots();
                 space[i].setSpacetoEmpty();
+                notify("Space " + to_string(spaceNumber) + " is now free."); 
                 cout << "Space " << spaceNumber << " is now free." << endl;
                 return true;
             }
             else
             {
+                notify("Space" + to_string(spaceNumber) + " is not occupied.");
                 cout << "Space " << spaceNumber << " is not occupied." << endl;
                 return false;
             }
