@@ -79,7 +79,7 @@ public:
         timeSlots[i] = false; // Mark slot as reserved
        // debug log cout << "Slot " << i + 7 << ":00 reserved." << endl;
     }
-
+    
     updateSpaceStatus();
 
     userID = id;
@@ -90,8 +90,16 @@ public:
     return true;
 }
 
+ void clearReservedTimeSlots()
+    {
+        for (int i = 0; i < totalTimeSlots; i++)
+        {
+            timeSlots[i] = true;
+        }
+    }
 
- void updateSpaceStatus() {
+ void updateSpaceStatus() 
+ {
     // Assume the space is fully reserved initially
     isSpaceEmpty = false;
 
@@ -106,9 +114,6 @@ public:
 
     // If no available slots are found, the space remains fully reserved
 }
-
-
-
     void display() override // displays Parking space number and it its status, also helps Composite uniformity with ParkingLot.hpp
     {
      cout << "Displaying Parking Space " << spaceNumber << endl;

@@ -112,13 +112,19 @@ vector<ParkingSpace>& getOccupiedSpaces()  // returns spaces which are occupied 
         {
             if (space[i].getSpaceNumber() == spaceNumber && !space[i].getIsSpaceEmpty()) // condition checks if the entered space number is not empty, if true set space to empty
             {
+                space[i].clearReservedTimeSlots();
                 space[i].setSpacetoEmpty();
-                cout << "Space #" << spaceNumber << " is now free." << endl;
+                cout << "Space " << spaceNumber << " is now free." << endl;
+                return true;
+            }
+            else
+            {
+                cout << "Space " << spaceNumber << " is not occupied." << endl;
                 return false;
             }
+            cout << "Space " << spaceNumber << " does not exist. Input correct space number." << endl;
         }
     }
-
     //string getName() const override 
    // {
      //   return lotName;

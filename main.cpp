@@ -37,6 +37,9 @@ int main() {
     studentLot1->reserveStudentSpot("blip", 1, 2, 5);
     studentLot1->reserveStudentSpot("dip", 1, 2, 6);
 
+    studentLot1->clearSpace(1);
+    studentLot1->reserveStudentSpot("ted", 1, 2, 6);
+
 
 
     return 0;
