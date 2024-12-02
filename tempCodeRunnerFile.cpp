@@ -1,1 +1,1 @@
-    lot2.getSpaces();
+1

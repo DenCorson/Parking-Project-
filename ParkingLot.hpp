@@ -11,6 +11,7 @@ class ParkingLot : public Parking{
 
 std:: vector<ParkingSpace> space; // vector of lots will contain objects of spaces from ParkingSpace class
 string lotName; // name of the lot(section)
+string userID; 
 
 public:
 
@@ -51,7 +52,7 @@ vector<ParkingSpace>& getOccupiedSpaces()  // returns spaces which are occupied 
         }
     }
 
-    int countEmptySpaces() // counts  the number emptypaces in the lot
+    int countEmptySpaces() // counts  the number emptyspaces in the lot
     {
         int emptySpace = 0;
         for (int i = 0; i < space.size(); i++)
@@ -77,16 +78,31 @@ vector<ParkingSpace>& getOccupiedSpaces()  // returns spaces which are occupied 
         return occupiedSpaces;
     }
 
-    bool reserveSpace(int spaceNumber)  // reserves space, with the space number
+    bool reserveSpace(const string& id,int spaceNumber, int startTime, int endTime)  // reserves space, with the space number
     {
+        bool statFlag = false;
+        int fullendTime;
         for (int i =0; i < space.size(); i++)  // iterates through lot vector of spaces
         {
             if (space[i].getSpaceNumber() == spaceNumber && space[i].getIsSpaceEmpty()) //condition checks if the entered space number is empty if so, reserve by setting space to occupied
              {
-                space[i].setSpacetoFull();
-                cout << "Space #" << spaceNumber << " has been reserved." << endl;
-                return true;
-            }
+
+                return space[i].reserveTimeSlot(id, startTime,endTime); // calls reserveTimeslot function from startTime, endtime reservations in parameter for specified parameter
+             }
+            else if(space[i].getSpaceNumber() == spaceNumber && space[i].getIsSpaceEmpty() == false)
+            {
+                fullendTime = space[i].getReservationEndTime();
+                statFlag = true;
+            }        
+        }
+        if(statFlag == true)
+        {
+            cout  << "Space " << spaceNumber << " is already occupied. will be free to reserve after " << fullendTime << ":00." << endl;
+            return false;
+        }
+        else 
+        {cout << "Space " << spaceNumber << " not found." << endl; // displays to user that space wasnt able to be reserved or found due  conflict 
+        return false; // Return false if the space is not found 
         }
     }
 
