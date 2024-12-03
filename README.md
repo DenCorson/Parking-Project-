@@ -6,3 +6,9 @@ Too keep fork updated, do the following from within the remote repository:
    - git fetch upstream
 3. Merge changes into your branch:
    - git merge upstream/main
+
+
+Steps to push:
+1. `git add .`
+2. `git commit -m '<commit message>'`
+3. `git push origin add-strategy-pattern`
