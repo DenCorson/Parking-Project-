@@ -12,3 +12,7 @@ Steps to push:
 1. `git add .`
 2. `git commit -m '<commit message>'`
 3. `git push origin add-strategy-pattern`
+
+Steps to run from
+1. `g++ <file_name>.cpp -o <output_file_name>`
+2. `./<output_file_name>`
