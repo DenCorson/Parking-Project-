@@ -2,6 +2,11 @@
 #include "ParkingLotDecorator.hpp"
 #include "Observer.hpp"
 
+#include "User.hpp"
+#include "AdminParkingStrategy.hpp"
+#include "StudentParkingStrategy.hpp"
+#include "FacultyParkingStrategy.hpp"
+
 int main() {
     //creates a parking lot "lotA" with 3 spaces in 
     //ParkingLot lotA = ParkingLotFactory::createParkingLot("Lot A", 3);
@@ -58,5 +63,30 @@ int main() {
     cout << "\nFinal Student Lot Status:\n";
     studentLot2->display();
 
+
+    // strategy pattern functionality 
+
+    // create users
+    User admin("Bob", "123");
+    User student("Steve", "456");
+    User faculty("Jane", "789");
+
+    //create strategies
+    AdminParkingStrategy adminStrategy;
+    StudentParkingStrategy studentStrategy;
+    FacultyParkingStrategy facultyStrategy;
+
+    //set user strategies
+    admin.setStrategy(&adminStrategy);
+    student.setStrategy(&studentStrategy);
+    faculty.setStrategy(&facultyStrategy);
+
+    //execute strategies
+    admin.executeStrategy();  
+    student.executeStrategy(); 
+    faculty.executeStrategy(); 
+
     return 0;
 }
+
+
