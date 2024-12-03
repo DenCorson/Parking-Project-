@@ -36,16 +36,24 @@ class ParkingLotDecorator: public ParkingLot  // decorator wraps around ParkingL
 
 // Below FacultyLotDecorator serves as ConcreteDecorator1
  
-class FacultyLotDecorator: public ParkingLotDecorator // decorator for the Faculty lot, will add faculty functionality
+class FacultyLotDecorator: public ParkingLotDecorator, public Observer // decorator and observer for the Faculty lot, will add faculty functionality, as well as observers to the lot
 {
   public:
-    FacultyLotDecorator(ParkingLot* blankLot): ParkingLotDecorator(blankLot){} // constructor which will intialize falcultylotDecorator with parklot pointer
+    FacultyLotDecorator(ParkingLot* blankLot): ParkingLotDecorator(blankLot)
+    {
+        baseParkingLot->registerObserver(this); 
+    } // constructor which will intialize falcultylotDecorator with parklot pointer as well as register observer with parkinglot
  
     /*virtual*/
    void display() override//tailors display message for faculty user
     {
         baseParkingLot->display(); 
         cout << "Authorized lot for Faculty" << endl;
+    }
+
+    void update(const string& message) override
+    {
+        cout << "Faculty Notification: " << message << endl;
     }
 
     bool reserveFacultySpot(const string& factID, int spaceNumber, int startTime, int endTime) // reserves parking spot for faculty with their ID in parameter and displays its faculty lot
@@ -65,7 +73,7 @@ class FacultyLotDecorator: public ParkingLotDecorator // decorator for the Facul
                 }
             if(baseParkingLot-> reserveSpace(factID, spaceNumber, startTime, endTime))
             {
-            cout << "Faculty space reserved for Faculty ID: " << factID << endl;
+            // observers display this now cout << "Faculty space reserved for Faculty ID: " << factID << endl;
             return true;
             }
             else
@@ -78,10 +86,13 @@ class FacultyLotDecorator: public ParkingLotDecorator // decorator for the Facul
 
 // Below StudentLotDecorator serves as ConcreteDecorator1
 
-class StudentLotDecorator: public ParkingLotDecorator // decorator for the Student  lot, will add student  functionality
+class StudentLotDecorator: public ParkingLotDecorator, public Observer // decorator for the Student  lot, will add student  functionality
 {
   public:
-    StudentLotDecorator(ParkingLot* blankLot): ParkingLotDecorator(blankLot){} // constructor which will intialize studentlotDecorator with parklot pointer
+    StudentLotDecorator(ParkingLot* blankLot): ParkingLotDecorator(blankLot)
+    {
+        baseParkingLot->registerObserver(this);
+    } // constructor which will intialize studentlotDecorator with parklot pointer
  
     /*virtual*/
     void display() override //tailors display message for student user
@@ -89,6 +100,13 @@ class StudentLotDecorator: public ParkingLotDecorator // decorator for the Stude
            baseParkingLot->display(); 
            cout << "Authorized lot for Students" << endl;
         }
+
+
+    
+    void update(const string& message) override
+    {
+        cout << "Student Notification: " << message << endl;
+    }
 
     bool reserveStudentSpot(const string& studentID, int spaceNumber, int startTime, int endTime) // reserves parking spot for student  with their ID in parameter and displays its student lot
         {
@@ -107,7 +125,7 @@ class StudentLotDecorator: public ParkingLotDecorator // decorator for the Stude
                 }
             if(baseParkingLot-> reserveSpace(studentID, spaceNumber, startTime, endTime))
             {
-            cout << "Student space reserved for Student ID: " << studentID << endl;
+            // observers display this cout << "Student space reserved for Student ID: " << studentID << endl;
             return true;
             }
             else
